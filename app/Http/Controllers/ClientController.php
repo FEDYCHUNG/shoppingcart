@@ -8,7 +8,23 @@ class ClientController extends Controller
 {
     //
 
-    public function home(){
+    public function home()
+    {
         return view('client.home');
+    }
+
+    public function shop()
+    {
+        return view('client.shop');
+    }
+
+    public function cart()
+    {
+        return view('client.cart');
+    }
+
+    public function checkout()
+    {
+        return view('client.checkout');
     }
 }
