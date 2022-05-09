@@ -6,8 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
 
@@ -32,22 +31,20 @@
 </head>
 
 <body class="goto-here">
-    <div class="py-1 bg-primary">
+    <div class="bg-primary py-1">
         <div class="container">
             <div class="row no-gutters d-flex align-items-start align-items-center px-md-0">
                 <div class="col-lg-12 d-block">
                     <div class="row d-flex">
-                        <div class="col-md pr-4 d-flex topper align-items-center">
-                            <div class="icon mr-2 d-flex justify-content-center align-items-center"><span
-                                    class="icon-phone2"></span></div>
+                        <div class="col-md d-flex topper align-items-center pr-4">
+                            <div class="icon d-flex justify-content-center align-items-center mr-2"><span class="icon-phone2"></span></div>
                             <span class="text">+ 1235 2355 98</span>
                         </div>
-                        <div class="col-md pr-4 d-flex topper align-items-center">
-                            <div class="icon mr-2 d-flex justify-content-center align-items-center"><span
-                                    class="icon-paper-plane"></span></div>
+                        <div class="col-md d-flex topper align-items-center pr-4">
+                            <div class="icon d-flex justify-content-center align-items-center mr-2"><span class="icon-paper-plane"></span></div>
                             <span class="text">youremail@email.com</span>
                         </div>
-                        <div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
+                        <div class="col-md-5 d-flex topper align-items-center text-lg-right pr-4">
                             <span class="text">3-5 Business days delivery &amp; Free Returns</span>
                         </div>
                     </div>
@@ -58,8 +55,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
             <a class="navbar-brand" href="index.html">Vegefoods</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
-                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="oi oi-menu"></span> Menu
             </button>
 
@@ -86,7 +82,7 @@
     @yield('content')
     {{-- End Content --}}
 
-    <section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
+    <section class="ftco-section ftco-no-pt ftco-no-pb bg-light py-5">
         <div class="container py-4">
             <div class="row d-flex justify-content-center py-5">
                 <div class="col-md-6">
@@ -127,13 +123,13 @@
                     </div>
                 </div>
                 <div class="col-md">
-                    <div class="ftco-footer-widget mb-4 ml-md-5">
+                    <div class="ftco-footer-widget ml-md-5 mb-4">
                         <h2 class="ftco-heading-2">Menu</h2>
                         <ul class="list-unstyled">
-                            <li><a href="#" class="py-2 d-block">Shop</a></li>
-                            <li><a href="#" class="py-2 d-block">About</a></li>
-                            <li><a href="#" class="py-2 d-block">Journal</a></li>
-                            <li><a href="#" class="py-2 d-block">Contact Us</a></li>
+                            <li><a href="#" class="d-block py-2">Shop</a></li>
+                            <li><a href="#" class="d-block py-2">About</a></li>
+                            <li><a href="#" class="d-block py-2">Journal</a></li>
+                            <li><a href="#" class="d-block py-2">Contact Us</a></li>
                         </ul>
                     </div>
                 </div>
@@ -142,14 +138,14 @@
                         <h2 class="ftco-heading-2">Help</h2>
                         <div class="d-flex">
                             <ul class="list-unstyled mr-l-5 pr-l-3 mr-4">
-                                <li><a href="#" class="py-2 d-block">Shipping Information</a></li>
-                                <li><a href="#" class="py-2 d-block">Returns &amp; Exchange</a></li>
-                                <li><a href="#" class="py-2 d-block">Terms &amp; Conditions</a></li>
-                                <li><a href="#" class="py-2 d-block">Privacy Policy</a></li>
+                                <li><a href="#" class="d-block py-2">Shipping Information</a></li>
+                                <li><a href="#" class="d-block py-2">Returns &amp; Exchange</a></li>
+                                <li><a href="#" class="d-block py-2">Terms &amp; Conditions</a></li>
+                                <li><a href="#" class="d-block py-2">Privacy Policy</a></li>
                             </ul>
                             <ul class="list-unstyled">
-                                <li><a href="#" class="py-2 d-block">FAQs</a></li>
-                                <li><a href="#" class="py-2 d-block">Contact</a></li>
+                                <li><a href="#" class="d-block py-2">FAQs</a></li>
+                                <li><a href="#" class="d-block py-2">Contact</a></li>
                             </ul>
                         </div>
                     </div>
@@ -167,8 +163,7 @@
                                 </li>
                                 <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392
                                             3929 210</span></a></li>
-                                <li><a href="#"><span class="icon icon-envelope"></span><span
-                                            class="text">info@yourdomain.com</span></a></li>
+                                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
                             </ul>
                         </div>
                     </div>
@@ -197,8 +192,7 @@
     <div id="ftco-loader" class="show fullscreen">
         <svg class="circular" width="48px" height="48px">
             <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
-            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
-                stroke="#F96D00" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" />
         </svg>
     </div>
 

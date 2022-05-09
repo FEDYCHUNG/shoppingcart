@@ -13,3 +13,5 @@ yarn-error.log
 /.idea
 /.vscode
 *.code-workspace
+*.bladeformatterrc.json
+*.vscode
