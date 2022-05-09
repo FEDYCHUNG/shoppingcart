@@ -1,5 +1,9 @@
 @extends('client_layout.client')
 
+@section('title')
+    Cart
+@endsection
+
 @section('content')
     <div class="hero-wrap hero-bread" style="background-image: url('{{ asset('frontend/images/bg_1.jpg') }}">
         <div class="container">
@@ -146,7 +150,7 @@
                             <span>$17.60</span>
                         </p>
                     </div>
-                    <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
+                    <p><a href="{{ url('/checkout') }}" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
                 </div>
             </div>
         </div>
