@@ -34,15 +34,27 @@ Route::get('/cart', [ClientController::class, 'cart']);
 Route::get('/checkout', [ClientController::class, 'checkout']);
 Route::get('/login', [ClientController::class, 'login']);
 Route::get('/signup', [ClientController::class, 'signup']);
-Route::get('/orders', [ClientController::class, 'orders']);
 
-Route::get('/admin', [AdminController::class, 'admin']);
 
-Route::get('/addcategory', [CategoryController::class, 'addcategory']);
-Route::get('/categories', [CategoryController::class, 'categories']);
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
-Route::get('/addslider', [SliderController::class, 'addslider']);
-Route::get('/sliders', [SliderController::class, 'sliders']);
+    Route::prefix('categories')->name('categories.')->group(function () {
+        Route::get('addcategory', [CategoryController::class, 'addcategory'])->name('addcategory');
+        Route::get('categories', [CategoryController::class, 'categories'])->name('categories');
+    });
 
-Route::get('/addproduct', [ProductController::class, 'addproduct']);
-Route::get('/products', [ProductController::class, 'products']);
+    route::prefix('sliders')->name('sliders.')->group(function () {
+        Route::get('/addslider', [SliderController::class, 'addslider'])->name('addslider');
+        Route::get('/sliders', [SliderController::class, 'sliders'])->name('sliders');
+    });
+
+    Route::prefix('products')->name('products.')->group(function () {
+        Route::get('/addproduct', [ProductController::class, 'addproduct'])->name('addproduct');
+        Route::get('/products', [ProductController::class, 'products'])->name('products');
+    });
+
+    Route::prefix('orders')->name('orders.')->group(function () {
+        Route::get('/orders', [ClientController::class, 'orders'])->name('orders');
+    });
+});
