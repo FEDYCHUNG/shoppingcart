@@ -52,7 +52,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     route::prefix('sliders')->name('sliders.')->group(function () {
         Route::get('addslider', [SliderController::class, 'addslider'])->name('addslider');
+        Route::post("saveslider", [SliderController::class, 'saveSlider'])->name('saveslider');
+
         Route::get('sliders', [SliderController::class, 'sliders'])->name('sliders');
+        Route::get('editslider/{id}', [SliderController::class, 'editSlider'])->name('editslider');
+        Route::put('active_unactive_slider/{id}/{status_update}', [SliderController::class, 'activeUnactiveSlider'])->name('active_unactive_slider');
+        Route::put('updateslider', [SliderController::class, 'updateSlider'])->name('updateslider');
+
+        Route::delete('deleteslider/{id}', [SliderController::class, 'deleteSlider'])->name('deleteslider');
     });
 
     Route::prefix('products')->name('products.')->group(function () {

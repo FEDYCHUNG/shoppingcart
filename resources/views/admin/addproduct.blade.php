@@ -49,7 +49,7 @@
                             @endif
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form id="quickForm" enctype="multipart/form-data" method="post" action="{{ route('admin.products.saveproduct') }}">
+                            <form id="frm_addproduct" enctype="multipart/form-data" method="post" action="{{ route('admin.products.saveproduct') }}">
                                 @csrf
                                 <div class="card-body">
                                     <div class="form-group">
@@ -84,7 +84,6 @@
                                 </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer">
-                                    <!-- <button type="submit" class="btn btn-success">Submit</button> -->
                                     <input type="submit" class="btn btn-success" value="Save">
                                 </div>
                             </form>
@@ -109,7 +108,12 @@
 @section('script')
     <script>
         $(function() {
-            $('#quickForm').validate({
+            $.validator.setDefaults({
+                submitHandler: function() {
+                    document.getElementById("frm_addproduct").submit();
+                }
+            });
+            $('#frm_addproduct').validate({
                 rules: {
                     product_name: {
                         required: true,
@@ -117,15 +121,20 @@
                     product_price: {
                         required: true,
                     },
+                    product_category: {
+                        required: true,
+                    },
                 },
                 messages: {
-                    email: {
-                        required: "Please enter a product name address",
+                    product_name: {
+                        required: "Please enter a product name",
                     },
-                    password: {
-                        required: "Please provide a product_price",
+                    product_price: {
+                        required: "Please provide a product price",
                     },
-                    terms: "Please accept our terms"
+                    product_category: {
+                        required: "Please provide a product category",
+                    }
                 },
                 errorElement: 'span',
                 errorPlacement: function(error, element) {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Slider;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -9,7 +10,8 @@ class ClientController extends Controller
     //
     public function home()
     {
-        return view('client.home');
+        $sliders = Slider::all();
+        return view('client.home', ["sliders" => $sliders]);
     }
 
     public function shop()

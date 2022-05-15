@@ -66,8 +66,9 @@
                                                     <td>{{ $category->category_name }}</td>
                                                     <td>
                                                         <a href="{{ route('admin.categories.editcategory', ['id' => $category->id]) }}" class="btn btn-primary"><i class="nav-icon fas fa-edit"></i></a>
-                                                        <a href="{{ route('admin.categories.deletecategory', ['id' => $category->id]) }}" data-method="delete" data-token="{{ csrf_token() }}"
-                                                            id="delete" class="btn btn-danger"><i class="nav-icon fas fa-trash"></i></a>
+                                                        <a href="{{ route('admin.categories.deletecategory', ['id' => $category->id]) }}" class="btn btn-danger delete">
+                                                            <i class="nav-icon fas fa-trash"></i>
+                                                        </a>
                                                     </td>
                                                 </tr>
                                                 @php $i++;  @endphp
@@ -100,7 +101,7 @@
 
 @section('script')
     <script>
-        $(document).on("click", "#delete", function(e) {
+        $(document).on("click", ".delete", function(e) {
             e.preventDefault();
             document.getElementById("_method").value = "delete";
             document.getElementById("frm_categories").action = $(this).attr("href");

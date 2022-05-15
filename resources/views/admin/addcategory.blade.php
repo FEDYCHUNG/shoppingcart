@@ -50,7 +50,7 @@
 
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form method="post" action="{{ route('admin.categories.savecategory') }}">
+                            <form id="frm_addcategory" method="post" action="{{ route('admin.categories.savecategory') }}">
                                 @csrf
                                 <div class="card-body">
                                     <div class="form-group">
@@ -60,7 +60,6 @@
                                 </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer">
-                                    <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
                                     <input type="submit" class="btn btn-primary" value="Save">
                                 </div>
                             </form>
@@ -87,33 +86,19 @@
         $(function() {
             $.validator.setDefaults({
                 submitHandler: function() {
-                    alert("Form successful submitted!");
+                    document.getElementById("frm_addcategory").submit();
                 }
             });
-            $('#quickForm').validate({
+            $('#frm_addcategory').validate({
                 rules: {
-                    email: {
+                    category_name: {
                         required: true,
-                        email: true,
-                    },
-                    password: {
-                        required: true,
-                        minlength: 5
-                    },
-                    terms: {
-                        required: true
                     },
                 },
                 messages: {
-                    email: {
-                        required: "Please enter a email address",
-                        email: "Please enter a vaild email address"
+                    category_name: {
+                        required: "Please enter a Category Name",
                     },
-                    password: {
-                        required: "Please provide a password",
-                        minlength: "Your password must be at least 5 characters long"
-                    },
-                    terms: "Please accept our terms"
                 },
                 errorElement: 'span',
                 errorPlacement: function(error, element) {

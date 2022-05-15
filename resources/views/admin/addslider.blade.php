@@ -31,23 +31,41 @@
                             <div class="card-header">
                                 <h3 class="card-title">Add slider</h3>
                             </div>
+
+                            @if (Session::has('status'))
+                                <div class="alert alert-success">
+                                    {{ Session::get('status') }}
+                                </div>
+                            @endif
+
+                            @if (count($errors) > 0)
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form>
+                            <form id="frm_addslider" enctype="multipart/form-data" method="post" action="{{ route('admin.sliders.saveslider') }}">
+                                @csrf
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Slider description 1</label>
-                                        <input type="text" name="description1" class="form-control" id="exampleInputEmail1" placeholder="Enter slider description">
+                                        <label for="description1">Slider description 1</label>
+                                        <input type="text" name="description1" class="form-control" id="description1" placeholder="Enter slider description">
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Slider description 2</label>
-                                        <input type="text" name="description2" class="form-control" id="exampleInputEmail1" placeholder="Enter slider description">
+                                        <label for="description2">Slider description 2</label>
+                                        <input type="text" name="description2" class="form-control" id="description2" placeholder="Enter slider description">
                                     </div>
-                                    <label for="exampleInputFile">Slider image</label>
+                                    <label for="slider_image">Slider image</label>
                                     <div class="input-group">
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="exampleInputFile">
-                                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                            <input type="file" class="custom-file-input" id="slider_image" name="slider_image">
+                                            <label class="custom-file-label" for="slider_image">Choose file</label>
                                         </div>
                                         <div class="input-group-append">
                                             <span class="input-group-text">Upload</span>
@@ -56,7 +74,6 @@
                                 </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer">
-                                    <!-- <button type="submit" class="btn btn-warning">Submit</button> -->
                                     <input type="submit" class="btn btn-warning" value="Save">
                                 </div>
                             </form>
@@ -83,33 +100,31 @@
         $(function() {
             $.validator.setDefaults({
                 submitHandler: function() {
-                    alert("Form successful submitted!");
+                    document.getElementById("frm_addslider").submit();
                 }
             });
-            $('#quickForm').validate({
+            $('#frm_addslider').validate({
                 rules: {
-                    email: {
+                    description1: {
                         required: true,
-                        email: true,
                     },
-                    password: {
+                    description2: {
                         required: true,
-                        minlength: 5
                     },
-                    terms: {
-                        required: true
+                    slider_image: {
+                        required: true,
                     },
                 },
                 messages: {
-                    email: {
-                        required: "Please enter a email address",
-                        email: "Please enter a vaild email address"
+                    description1: {
+                        required: "Please provide Slider description 1",
                     },
-                    password: {
-                        required: "Please provide a password",
-                        minlength: "Your password must be at least 5 characters long"
+                    description2: {
+                        required: "Please provide Slider description 2",
                     },
-                    terms: "Please accept our terms"
+                    slider_image: {
+                        required: "Please provide Slider image",
+                    },
                 },
                 errorElement: 'span',
                 errorPlacement: function(error, element) {

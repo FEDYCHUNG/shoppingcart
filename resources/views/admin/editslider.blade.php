@@ -8,12 +8,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Product</h1>
+                        <h1>Slider</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Product</li>
+                            <li class="breadcrumb-item active">Slider</li>
                         </ol>
                     </div>
                 </div>
@@ -27,44 +27,31 @@
                     <!-- left column -->
                     <div class="col-md-12">
                         <!-- jquery validation -->
-                        <div class="card card-success">
+                        <div class="card card-warning">
                             <div class="card-header">
-                                <h3 class="card-title">Edit product</h3>
+                                <h3 class="card-title">Edit slider</h3>
                             </div>
 
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form id="frm_editproduct" enctype="multipart/form-data" method="post" action="{{ route('admin.products.updateproduct') }}">
+                            <form id="frm_editslider" enctype="multipart/form-data" method="post" action="{{ route('admin.sliders.updateslider') }}">
                                 @method('put')
                                 @csrf
+                                <input type="hidden" name="id" id="id" value="{{ $slider->id }}">
                                 <div class="card-body">
-                                    <input type="hidden" name="id" value="{{ isset($product) ? $product->id : '' }}">
                                     <div class="form-group">
-                                        <label for="product_name">Product name</label>
-                                        <input type="text" name="product_name" class="form-control" id="product_name" placeholder="Enter product name" value="{{ $product->product_name }}">
+                                        <label for="description1">Slider description 1</label>
+                                        <input type="text" name="description1" class="form-control" id="description1" placeholder="Enter slider description" value="{{ $slider->description1 }}">
                                     </div>
                                     <div class="form-group">
-                                        <label for="product_price">Product price</label>
-                                        <input type="number" name="product_price" class="form-control" id="product_price" placeholder="Enter product price" min="1"
-                                            value="{{ $product->product_price }}">
+                                        <label for="description2">Slider description 2</label>
+                                        <input type="text" name="description2" class="form-control" id="description2" placeholder="Enter slider description" value="{{ $slider->description2 }}">
                                     </div>
-                                    <div class="form-group">
-                                        <label>Product category</label>
-                                        <select class="form-control select2" name="product_category" style="width: 100%;">
-                                            @isset($categories)
-                                                @foreach ($categories as $category)
-                                                    <option value="{{ $category->id }}" {{ $category->id == $product->product_category ? 'selected' : '' }}>
-                                                        {{ $category->category_name }}
-                                                    </option>
-                                                @endforeach
-                                            @endisset
-                                        </select>
-                                    </div>
-                                    <label for="product_image">Product image</label>
+                                    <label for="slider_image">Slider image</label>
                                     <div class="input-group">
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="product_image" name="product_image">
-                                            <label class="custom-file-label" for="product_image">Choose file</label>
+                                            <input type="file" class="custom-file-input" id="slider_image" name="slider_image">
+                                            <label class="custom-file-label" for="slider_image">Choose file</label>
                                         </div>
                                         <div class="input-group-append">
                                             <span class="input-group-text">Upload</span>
@@ -73,8 +60,8 @@
                                 </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer">
-                                    <input type="submit" class="btn btn-success" value="Update">
-                                    <a href="{{ route('admin.products.products') }}" class="btn btn-warning" value="Back">Back</a>
+                                    <input type="submit" class="btn btn-warning" value="Update">
+                                    <a href="{{ route('admin.sliders.sliders') }}" class="btn btn-warning">Back</a>
                                 </div>
                             </form>
                         </div>
@@ -100,31 +87,25 @@
         $(function() {
             $.validator.setDefaults({
                 submitHandler: function() {
-                    document.getElementById("frm_editproduct").submit();
+                    document.getElementById("frm_editslider").submit();
                 }
             });
-            $('#frm_editproduct').validate({
+            $('#frm_editslider').validate({
                 rules: {
-                    product_name: {
+                    description1: {
                         required: true,
                     },
-                    product_price: {
-                        required: true,
-                    },
-                    product_category: {
+                    description2: {
                         required: true,
                     },
                 },
                 messages: {
-                    product_name: {
-                        required: "Please enter a product name",
+                    description1: {
+                        required: "Please provide Slider description 1",
                     },
-                    product_price: {
-                        required: "Please provide a product price",
+                    description2: {
+                        required: "Please provide Slider description 2",
                     },
-                    product_category: {
-                        required: "Please provide a product category",
-                    }
                 },
                 errorElement: 'span',
                 errorPlacement: function(error, element) {

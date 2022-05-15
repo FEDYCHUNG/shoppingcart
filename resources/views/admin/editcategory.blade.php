@@ -34,7 +34,7 @@
 
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form method="POST" action="{{ route('admin.categories.updatecategory') }}">
+                            <form id="frm_editcategory" method="POST" action="{{ route('admin.categories.updatecategory') }}">
                                 @method('PUT')
                                 @csrf
                                 <div class="card-body">
@@ -47,7 +47,6 @@
                                 </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer">
-                                    <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
                                     <input type="submit" class="btn btn-primary" value="Update">
                                     <a href="{{ route('admin.categories.categories') }}" class="btn btn-warning" value="Back">Back</a>
                                 </div>
@@ -75,33 +74,19 @@
         $(function() {
             $.validator.setDefaults({
                 submitHandler: function() {
-                    alert("Form successful submitted!");
+                    document.getElementById("frm_editcategory").submit();
                 }
             });
-            $('#quickForm').validate({
+            $('#frm_editcategory').validate({
                 rules: {
-                    email: {
+                    category_name: {
                         required: true,
-                        email: true,
-                    },
-                    password: {
-                        required: true,
-                        minlength: 5
-                    },
-                    terms: {
-                        required: true
                     },
                 },
                 messages: {
-                    email: {
-                        required: "Please enter a email address",
-                        email: "Please enter a vaild email address"
+                    category_name: {
+                        required: "Please enter a Category Name",
                     },
-                    password: {
-                        required: "Please provide a password",
-                        minlength: "Your password must be at least 5 characters long"
-                    },
-                    terms: "Please accept our terms"
                 },
                 errorElement: 'span',
                 errorPlacement: function(error, element) {

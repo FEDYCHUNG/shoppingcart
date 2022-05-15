@@ -75,11 +75,11 @@
                                                         <td>{{ $product->product_price }}</td>
                                                         <td>
                                                             <a href="{{ route('admin.products.active_unactive_product', ['id' => $product->id, 'status_update' => intval(!$product->status)]) }}"
-                                                                class="btn {{ $product->status == config('constants.PRODUCT_ACTIVE') ? 'btn-success' : 'btn-warning' }}" id="active_unactive">
+                                                                class="active_unactive btn {{ $product->status == config('constants.PRODUCT_ACTIVE') ? 'btn-success' : 'btn-warning' }}">
                                                                 {{ $product->status == config('constants.PRODUCT_ACTIVE') ? 'Activate' : 'Unactivate' }}
                                                             </a>
                                                             <a href="{{ route('admin.products.editproduct', ['id' => $product->id]) }}" class="btn btn-primary"><i class="nav-icon fas fa-edit"></i></a>
-                                                            <a href="{{ route('admin.products.deleteproduct', ['id' => $product->id]) }}" id="delete" class="btn btn-danger">
+                                                            <a href="{{ route('admin.products.deleteproduct', ['id' => $product->id]) }}" class="btn btn-danger delete">
                                                                 <i class="nav-icon fas fa-trash"></i>
                                                             </a>
                                                         </td>
@@ -133,7 +133,7 @@
                 "responsive": true,
             });
 
-            $(document).on("click", "#delete", function(e) {
+            $(document).on("click", ".delete", function(e) {
                 e.preventDefault();
                 document.getElementById("_method").value = "DELETE";
                 document.getElementById("frm_products").action = $(this).attr("href");
@@ -145,7 +145,7 @@
                 });
             });
 
-            $(document).on("click", "#active_unactive", function(e) {
+            $(document).on("click", ".active_unactive", function(e) {
                 e.preventDefault();
                 document.getElementById("_method").value = "put";
                 document.getElementById("frm_products").action = $(this).attr("href");
