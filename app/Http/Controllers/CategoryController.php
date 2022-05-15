@@ -47,7 +47,7 @@ class CategoryController extends Controller
 
         $category->save();
 
-        return back()->with('status', 'The category name has been updated successfully !!');
+        return redirect()->route("admin.categories.categories")->with('status', 'The category name has been updated successfully !!');
     }
 
     public function deleteCategory(Request $request)

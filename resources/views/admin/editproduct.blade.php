@@ -29,44 +29,33 @@
                         <!-- jquery validation -->
                         <div class="card card-success">
                             <div class="card-header">
-                                <h3 class="card-title">Add product</h3>
+                                <h3 class="card-title">Edit product</h3>
                             </div>
 
-                            @if (Session::has('status'))
-                                <div class="alert alert-success">
-                                    {{ Session::get('status') }}
-                                </div>
-                            @endif
-
-                            @if (count($errors) > 0)
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form id="quickForm" enctype="multipart/form-data" method="post" action="{{ route('admin.products.saveproduct') }}">
+                            <form id="quickForm" enctype="multipart/form-data" method="post" action="{{ route('admin.products.updateproduct') }}">
+                                @method('put')
                                 @csrf
                                 <div class="card-body">
+                                    <input type="hidden" name="id" value="{{ isset($product) ? $product->id : '' }}">
                                     <div class="form-group">
                                         <label for="product_name">Product name</label>
-                                        <input type="text" name="product_name" class="form-control" id="product_name" placeholder="Enter product name">
+                                        <input type="text" name="product_name" class="form-control" id="product_name" placeholder="Enter product name" value="{{ $product->product_name }}">
                                     </div>
                                     <div class="form-group">
                                         <label for="product_price">Product price</label>
-                                        <input type="number" name="product_price" class="form-control" id="product_price" placeholder="Enter product price" min="1">
+                                        <input type="number" name="product_price" class="form-control" id="product_price" placeholder="Enter product price" min="1"
+                                            value="{{ $product->product_price }}">
                                     </div>
                                     <div class="form-group">
                                         <label>Product category</label>
                                         <select class="form-control select2" name="product_category" style="width: 100%;">
-                                            <option value="">Select Category</option>
                                             @isset($categories)
                                                 @foreach ($categories as $category)
-                                                    <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                                                    <option value="{{ $category->id }}" {{ $category->id == $product->product_category ? 'selected' : '' }}>
+                                                        {{ $category->category_name }}
+                                                    </option>
                                                 @endforeach
                                             @endisset
                                         </select>
@@ -85,7 +74,8 @@
                                 <!-- /.card-body -->
                                 <div class="card-footer">
                                     <!-- <button type="submit" class="btn btn-success">Submit</button> -->
-                                    <input type="submit" class="btn btn-success" value="Save">
+                                    <input type="submit" class="btn btn-success" value="Update">
+                                    <a href="{{ route('admin.products.products') }}" class="btn btn-warning" value="Back">Back</a>
                                 </div>
                             </form>
                         </div>

@@ -32,22 +32,6 @@
                                 <h3 class="card-title">Edit category</small></h3>
                             </div>
 
-                            @if (Session::has('status'))
-                                <div class="alert alert-success">
-                                    {{ Session::get('status') }}
-                                </div>
-                            @endif
-
-                            @if (count($errors) > 0)
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
-
                             <!-- /.card-header -->
                             <!-- form start -->
                             <form method="POST" action="{{ route('admin.categories.updatecategory') }}">

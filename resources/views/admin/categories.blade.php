@@ -32,13 +32,22 @@
                                 <div class="card-header">
                                     <h3 class="card-title">All categories</h3>
                                 </div>
-
                                 @if (Session::has('status'))
                                     <div class="alert alert-success">
                                         {{ Session::get('status') }}
                                     </div>
                                 @endif
 
+
+                                @if (count($errors) > 0)
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
                                 <!-- /.card-header -->
                                 <div class="card-body">
                                     <table id="example1" class="table-bordered table-striped table">

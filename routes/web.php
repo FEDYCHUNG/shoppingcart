@@ -44,24 +44,27 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('addcategory', [CategoryController::class, 'addcategory'])->name('addcategory');
         Route::post('savecategory', [CategoryController::class, 'saveCategory'])->name('savecategory');
 
+        Route::get('categories', [CategoryController::class, 'categories'])->name('categories');
         Route::get('editcategory/{id}', [CategoryController::class, 'editCategory'])->name('editcategory');
         Route::put('updatecategory', [CategoryController::class, 'udpateCategory'])->name('updatecategory');
         Route::delete('deletecategory/{id}', [CategoryController::class, 'deleteCategory'])->name('deletecategory');
-
-        Route::get('categories', [CategoryController::class, 'categories'])->name('categories');
     });
 
     route::prefix('sliders')->name('sliders.')->group(function () {
-        Route::get('/addslider', [SliderController::class, 'addslider'])->name('addslider');
-        Route::get('/sliders', [SliderController::class, 'sliders'])->name('sliders');
+        Route::get('addslider', [SliderController::class, 'addslider'])->name('addslider');
+        Route::get('sliders', [SliderController::class, 'sliders'])->name('sliders');
     });
 
     Route::prefix('products')->name('products.')->group(function () {
-        Route::get('/addproduct', [ProductController::class, 'addproduct'])->name('addproduct');
-        Route::get('/products', [ProductController::class, 'products'])->name('products');
+        Route::get('addproduct', [ProductController::class, 'addproduct'])->name('addproduct');
+        Route::post('saveproduct', [ProductController::class, 'saveProduct'])->name('saveproduct');
+
+        Route::get('products', [ProductController::class, 'products'])->name('products');
+        Route::get('editproduct/{id}', [ProductController::class, 'editProduct'])->name('editproduct');
+        Route::put('updateproduct', [ProductController::class, 'updateProduct'])->name('updateproduct');
     });
 
     Route::prefix('orders')->name('orders.')->group(function () {
-        Route::get('/orders', [ClientController::class, 'orders'])->name('orders');
+        Route::get('orders', [ClientController::class, 'orders'])->name('orders');
     });
 });
