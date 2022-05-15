@@ -62,6 +62,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('products', [ProductController::class, 'products'])->name('products');
         Route::get('editproduct/{id}', [ProductController::class, 'editProduct'])->name('editproduct');
         Route::put('updateproduct', [ProductController::class, 'updateProduct'])->name('updateproduct');
+        Route::put('active_unactive_product/{id}/{status_update}', [ProductController::class, 'activeUnactiveProduct'])->name('active_unactive_product');
+
+        Route::delete('deleteproduct/{id}', [ProductController::class, 'deleteProduct'])->name('deleteproduct');
     });
 
     Route::prefix('orders')->name('orders.')->group(function () {

@@ -105,7 +105,7 @@
             document.getElementById("_method").value = "delete";
             document.getElementById("frm_categories").action = $(this).attr("href");
 
-            bootbox.confirm("Do you really want to delete this element ?", function(confirmed) {
+            bootbox.confirm("Do you really want to delete this category name ?", function(confirmed) {
                 if (confirmed) {
                     document.getElementById("frm_categories").submit();
                 };

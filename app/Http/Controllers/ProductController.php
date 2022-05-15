@@ -52,6 +52,7 @@ class ProductController extends Controller
             $path = $request->file("product_image")->storeAs('public/product_images', $file_name_to_store);
         }
         $products->product_image = $file_name_to_store;
+        $products->status = config("constants.PRODUCT_ACTIVE");
 
         $products->save();
 
@@ -100,5 +101,25 @@ class ProductController extends Controller
         $products->save();
 
         return redirect()->route('admin.products.products')->with('status', 'The product name has been updated successfully !!');
+    }
+
+    public function deleteProduct($id)
+    {
+        $product = Product::find($id);
+
+        if ($product->product_image != "no_image.jpg")
+            Storage::delete("public/product_images/" . $product->product_image);
+
+        $product->delete();
+
+        return back()->with("status", "The product name has been deleted successfully !!!");
+    }
+
+    public function activeUnactiveProduct($id, $status_update)
+    {
+        $product = Product::find($id);
+        $product->status = (int) $status_update;
+        $product->save();
+        return back()->with("status", "The product has been " . (intval($status_update) == config('constants.PRODUCT_ACTIVE') ? "Active" : "Unactivate") . " successfully !!!");
     }
 }
