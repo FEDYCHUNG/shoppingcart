@@ -25,53 +25,57 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">All categories</h3>
+                        <form id="frm_categories" method="post" action="">
+                            <input type="hidden" name="_method" id="_method" style="user-select: auto;">
+                            @csrf
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">All categories</h3>
+                                </div>
+
+                                @if (Session::has('status'))
+                                    <div class="alert alert-success">
+                                        {{ Session::get('status') }}
+                                    </div>
+                                @endif
+
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table id="example1" class="table-bordered table-striped table">
+                                        <thead>
+                                            <tr>
+                                                <th>Num.</th>
+                                                <th>Category Name</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php $i=1;  @endphp
+                                            @foreach ($categories as $category)
+                                                <tr>
+                                                    <td>{{ $i }}</td>
+                                                    <td>{{ $category->category_name }}</td>
+                                                    <td>
+                                                        <a href="{{ route('admin.categories.editcategory', ['id' => $category->id]) }}" class="btn btn-primary"><i class="nav-icon fas fa-edit"></i></a>
+                                                        <a href="{{ route('admin.categories.deletecategory', ['id' => $category->id]) }}" data-method="delete" data-token="{{ csrf_token() }}"
+                                                            id="delete" class="btn btn-danger"><i class="nav-icon fas fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                                @php $i++;  @endphp
+                                            @endforeach
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Num.</th>
+                                                <th>Category Name</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
                             </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                <table id="example1" class="table-bordered table-striped table">
-                                    <thead>
-                                        <tr>
-                                            <th>Num.</th>
-                                            <th>Category Name</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Internet
-                                                Explorer 4.0
-                                            </td>
-                                            <td>
-                                                <a href="#" class="btn btn-primary"><i class="nav-icon fas fa-edit"></i></a>
-                                                <a href="#" id="delete" class="btn btn-danger"><i class="nav-icon fas fa-trash"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Internet
-                                                Explorer 5.0
-                                            </td>
-                                            <td>
-                                                <a href="#" class="btn btn-primary"><i class="nav-icon fas fa-edit"></i></a>
-                                                <a href="#" id="delete" class="btn btn-danger"><i class="nav-icon fas fa-trash"></i></a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Num.</th>
-                                            <th>Category Name</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
-                            <!-- /.card-body -->
-                        </div>
+                        </form>
                         <!-- /.card -->
                     </div>
                     <!-- /.col -->
@@ -89,10 +93,12 @@
     <script>
         $(document).on("click", "#delete", function(e) {
             e.preventDefault();
-            var link = $(this).attr("href");
+            document.getElementById("_method").value = "delete";
+            document.getElementById("frm_categories").action = $(this).attr("href");
+
             bootbox.confirm("Do you really want to delete this element ?", function(confirmed) {
                 if (confirmed) {
-                    window.location.href = link;
+                    document.getElementById("frm_categories").submit();
                 };
             });
         });

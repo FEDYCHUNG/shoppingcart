@@ -37,10 +37,17 @@ Route::get('/signup', [ClientController::class, 'signup']);
 
 
 Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
     Route::prefix('categories')->name('categories.')->group(function () {
         Route::get('addcategory', [CategoryController::class, 'addcategory'])->name('addcategory');
+        Route::post('savecategory', [CategoryController::class, 'saveCategory'])->name('savecategory');
+
+        Route::get('editcategory/{id}', [CategoryController::class, 'editCategory'])->name('editcategory');
+        Route::put('updatecategory', [CategoryController::class, 'udpateCategory'])->name('updatecategory');
+        Route::delete('deletecategory/{id}', [CategoryController::class, 'deleteCategory'])->name('deletecategory');
+
         Route::get('categories', [CategoryController::class, 'categories'])->name('categories');
     });
 

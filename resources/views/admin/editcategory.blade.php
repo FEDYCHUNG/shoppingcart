@@ -13,7 +13,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Category</li>
+                            <li class="breadcrumb-item active">Edit Category</li>
                         </ol>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
                         <!-- jquery validation -->
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">Add category</small></h3>
+                                <h3 class="card-title">Edit category</small></h3>
                             </div>
 
                             @if (Session::has('status'))
@@ -50,18 +50,22 @@
 
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form method="post" action="{{ route('admin.categories.savecategory') }}">
+                            <form method="POST" action="{{ route('admin.categories.updatecategory') }}">
+                                @method('PUT')
                                 @csrf
                                 <div class="card-body">
+                                    <input type="hidden" name="id" value="{{ isset($category) ? $category->id : '' }}">
                                     <div class="form-group">
                                         <label for="category_name">Category name</label>
-                                        <input type="text" name="category_name" class="form-control" id="category_name" placeholder="Enter category">
+                                        <input type="text" name="category_name" class="form-control" id="category_name" placeholder="Enter category"
+                                            value="{{ isset($category) ? $category->category_name : '' }}">
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer">
                                     <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
-                                    <input type="submit" class="btn btn-primary" value="Save">
+                                    <input type="submit" class="btn btn-primary" value="Update">
+                                    <a href="{{ route('admin.categories.categories') }}" class="btn btn-warning" value="Back">Back</a>
                                 </div>
                             </form>
                         </div>
