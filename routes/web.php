@@ -37,8 +37,10 @@ Route::delete("/remove_from_cart/{id}", [ClientController::class, 'removeFromCar
 
 Route::get('/cart', [ClientController::class, 'cart']);
 Route::get('/checkout', [ClientController::class, 'checkout']);
-Route::get('/login', [ClientController::class, 'login']);
-Route::get('/signup', [ClientController::class, 'signup']);
+Route::get('/login', [ClientController::class, 'login'])->name("login");
+Route::get('/logout', [ClientController::class, 'logout'])->name("logout");
+Route::get('/signup', [ClientController::class, 'signup'])->name("signup");
+Route::post('/create_account', [ClientController::class, 'createAccount'])->name("create_account");
 
 
 Route::prefix('admin')->name('admin.')->group(function () {

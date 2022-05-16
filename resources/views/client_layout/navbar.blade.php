@@ -36,8 +36,8 @@
                     </a>
                 </li>
                 <li class="nav-item active">
-                    <a href="{{ url('/login') }}" class="nav-link">
-                        <span class="fa fa-user"></span>Login
+                    <a href="{{ Session::has('client') ? route('logout') : route('login') }}" class="nav-link">
+                        <span class="fa fa-user"></span>{{ Session::has('client') ? 'Logout' : 'Login' }}
                     </a>
                 </li>
             </ul>

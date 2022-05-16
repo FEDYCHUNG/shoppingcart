@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Classes\Cart;
 use App\Models\Category;
+use App\Models\Client;
 use App\Models\Product;
 use App\Models\Slider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
 class ClientController extends Controller
@@ -45,12 +47,30 @@ class ClientController extends Controller
 
     public function checkout()
     {
+        if (!Session::has("client")) return view("client.login");
+
         return view('client.checkout');
     }
 
-    public function login()
+    public function login(Request $request)
     {
-        return view('client.login');
+        if (!$request->has("email")) return view('client.login');
+
+        $this->validate($request, [
+            "email" => "required|email",
+            "password" => "required|min:4",
+        ]);
+
+        $client = Client::where(['email' => $request->email])->firstOrFail();
+
+        if (!$client) return back()->with("status", "You do not have an account. Please Sign Up !!!");
+
+        if (Hash::check($request->password, $client->password)) {
+            Session::put("client", $client);
+            return redirect("/");
+        } else {
+            return back()->with("status", "Wrong Email or Password !!!");
+        }
     }
 
     public function signup()
@@ -99,5 +119,27 @@ class ClientController extends Controller
             Session::forget("cart");
             return redirect()->route("shop");
         }
+    }
+
+    public function createAccount(Request $request)
+    {
+        $this->validate($request, [
+            "email" => "required|email|unique:clients",
+            "password" => "required|min:4",
+        ]);
+
+        $client = new Client();
+        $client->email = $request->email;
+        $client->password = Hash::make($request->password);
+
+        $client->save();
+
+        return back()->with("status", "Your account has been successfully created !!!");
+    }
+
+    public function logout()
+    {
+        Session::flush();
+        return redirect("/");
     }
 }

@@ -161,9 +161,12 @@
                                             <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
                                                 <span><i class="ion-ios-menu"></i></span>
                                             </a>
-                                            <a href="{{ route('addtocart', ['id' => $products[$i]->id]) }}" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                                                <span><i class="ion-ios-cart"></i></span>
-                                            </a>
+                                            <form method="post" action="{{ route('addtocart', ['id' => $products[$i]->id]) }}">
+                                                @csrf
+                                                <a href="javascript:;" onclick="parentNode.submit();" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                                    <span><i class="ion-ios-cart"></i></span>
+                                                </a>
+                                            </form>
                                             <a href="#" class="heart d-flex justify-content-center align-items-center">
                                                 <span><i class="ion-ios-heart"></i></span>
                                             </a>
