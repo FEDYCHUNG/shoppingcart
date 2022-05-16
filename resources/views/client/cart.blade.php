@@ -12,7 +12,7 @@
                     <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span>
                         <span>Cart</span>
                     </p>
-                    <h1 class="mb-0 bread">My Cart</h1>
+                    <h1 class="bread mb-0">My Cart</h1>
                 </div>
             </div>
         </div>
@@ -35,119 +35,105 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="text-center">
-                                    <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
+                                @if ($carts)
+                                    @foreach ($carts->items as $product)
+                                        <tr class="text-center">
+                                            <td class="product-remove">
+                                                <form method="post" action="{{ route('remove_from_cart', ['id' => $product['product_id']]) }}">
+                                                    @method('delete')
+                                                    @csrf
+                                                    <a href="javascript:;" onclick="parentNode.submit();"><span class="ion-ios-close"></span></a>
+                                                </form>
+                                            </td>
 
-                                    <td class="image-prod">
-                                        <div class="img"
-                                            style="background-image:url('{{ asset('frontend/images/product-3.jpg') }}');">
-                                        </div>
-                                    </td>
+                                            <td class="image-prod">
+                                                <div class="img" style="background-image:url('{{ asset('storage/product_images/' . $product['product_image']) }}');">
+                                                </div>
+                                            </td>
 
-                                    <td class="product-name">
-                                        <h3>Bell Pepper</h3>
-                                        <p>Far far away, behind the word mountains, far from the countries</p>
-                                    </td>
+                                            <td class="product-name">
+                                                <h3>{{ $product['product_name'] }}</h3>
+                                                {{-- <p>Far far away, behind the word mountains, far from the countries</p> --}}
+                                            </td>
 
-                                    <td class="price">$4.90</td>
-                                    <form action="">
-                                        <td class="quantity">
-                                            <div class="input-group mb-3">
-                                                <input type="number" name="quantity"
-                                                    class="quantity form-control input-number" value="1" min="1" max="100">
-                                            </div>
-                                    </form>
+                                            <td class="price">Rp. {{ number_format($product['product_price'], '2', '.', ',') }}</td>
 
-
-                                    </td>
-
-                                    <td class="total">$4.90</td>
-                                </tr><!-- END TR-->
-
-                                <tr class="text-center">
-                                    <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
-
-                                    <td class="image-prod">
-                                        <div class="img"
-                                            style="background-image:url('{{ asset('frontend/images/product-4.jpg') }}');">
-                                        </div>
-                                    </td>
-
-                                    <td class="product-name">
-                                        <h3>Bell Pepper</h3>
-                                        <p>Far far away, behind the word mountains, far from the countries</p>
-                                    </td>
-
-                                    <td class="price">$15.70</td>
-
-                                    <td class="quantity">
-                                        <div class="input-group mb-3">
-                                            <input type="text" name="quantity" class="quantity form-control input-number"
-                                                value="1" min="1" max="100">
-                                        </div>
-                                    </td>
-
-                                    <td class="total">$15.70</td>
-                                </tr><!-- END TR-->
+                                            <td class="quantity">
+                                                <form method="post" action="{{ route('update_qty', ['id' => $product['product_id']]) }}">
+                                                    @method('put')
+                                                    @csrf
+                                                    <div class="input-group mb-3">
+                                                        <input type="number" name="quantity" class="quantity form-control input-number" value="{{ $product['qty'] }}" min="1" max="100">
+                                                    </div>
+                                                    <input type="submit" class="btn btn-success" value="Validate">
+                                                </form>
+                                            </td>
+                                            <td class="total">Rp. {{ number_format($product['product_price'] * $product['qty'], '2', '.', ',') }}</td>
+                                        </tr><!-- END TR-->
+                                    @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
             <div class="row justify-content-end">
-                <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
+                <div class="col-lg-4 cart-wrap ftco-animate mt-5">
                     <div class="cart-total mb-3">
                         <h3>Coupon Code</h3>
                         <p>Enter your coupon code if you have one</p>
                         <form action="#" class="info">
                             <div class="form-group">
                                 <label for="">Coupon code</label>
-                                <input type="text" class="form-control text-left px-3" placeholder="">
+                                <input type="text" class="form-control px-3 text-left" placeholder="">
                             </div>
                         </form>
                     </div>
                     <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Apply Coupon</a></p>
                 </div>
-                <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
+                <div class="col-lg-4 cart-wrap ftco-animate mt-5">
                     <div class="cart-total mb-3">
                         <h3>Estimate shipping and tax</h3>
                         <p>Enter your destination to get a shipping estimate</p>
                         <form action="#" class="info">
                             <div class="form-group">
                                 <label for="">Country</label>
-                                <input type="text" class="form-control text-left px-3" placeholder="">
+                                <input type="text" class="form-control px-3 text-left" placeholder="">
                             </div>
                             <div class="form-group">
                                 <label for="country">State/Province</label>
-                                <input type="text" class="form-control text-left px-3" placeholder="">
+                                <input type="text" class="form-control px-3 text-left" placeholder="">
                             </div>
                             <div class="form-group">
                                 <label for="country">Zip/Postal Code</label>
-                                <input type="text" class="form-control text-left px-3" placeholder="">
+                                <input type="text" class="form-control px-3 text-left" placeholder="">
                             </div>
                         </form>
                     </div>
                     <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Estimate</a></p>
                 </div>
-                <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
+                <div class="col-lg-4 cart-wrap ftco-animate mt-5">
+                    @php
+                        $total_price = $carts ? $carts->total_price : 0;
+                    @endphp
                     <div class="cart-total mb-3">
                         <h3>Cart Totals</h3>
                         <p class="d-flex">
                             <span>Subtotal</span>
-                            <span>$20.60</span>
+                            <span>Rp. {{ number_format($total_price, '2', '.', ',') }}</span>
                         </p>
                         <p class="d-flex">
                             <span>Delivery</span>
-                            <span>$0.00</span>
+                            <span>Rp. {{ number_format($delivery_price, '2', '.', ',') }}</span>
                         </p>
                         <p class="d-flex">
                             <span>Discount</span>
-                            <span>$3.00</span>
+                            <span>Rp. {{ number_format($discount, '2', '.', ',') }}</span>
                         </p>
                         <hr>
                         <p class="d-flex total-price">
                             <span>Total</span>
-                            <span>$17.60</span>
+                            <span>Rp. {{ number_format($total_price + $delivery_price - $discount, '2', '.', ',') }}</span>
                         </p>
                     </div>
                     <p><a href="{{ url('/checkout') }}" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>

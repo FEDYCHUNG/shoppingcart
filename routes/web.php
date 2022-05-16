@@ -29,7 +29,12 @@ use Illuminate\Support\Facades\Route;
 // require __DIR__.'/auth.php';
 
 Route::get('/', [ClientController::class, 'home']);
+
 Route::get('/shop/{id?}', [ClientController::class, 'shop'])->name("shop");
+Route::post('/addtocart/{id}', [ClientController::class, 'addToCart'])->name("addtocart");
+Route::put('/update_qty/{id}', [ClientController::class, 'updateQty'])->name("update_qty");
+Route::delete("/remove_from_cart/{id}", [ClientController::class, 'removeFromCart'])->name("remove_from_cart");
+
 Route::get('/cart', [ClientController::class, 'cart']);
 Route::get('/checkout', [ClientController::class, 'checkout']);
 Route::get('/login', [ClientController::class, 'login']);

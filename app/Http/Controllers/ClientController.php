@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\Cart;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Slider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class ClientController extends Controller
 {
@@ -22,14 +24,23 @@ class ClientController extends Controller
         $categories = Category::all();
 
         $product_category_operand = ($id == "") ? "!=" : "=";
-        $products = Product::where("status", config("constants.PRODUCT_ACTIVE"))->where("product_category", $product_category_operand, $id)->paginate(4);
+        $products = Product::where("status", config("constants.PRODUCT_ACTIVE"))->where("product_category", $product_category_operand, $id)->paginate(16);
 
         return view('client.shop', ["categories" => $categories, "products" => $products]);
     }
 
     public function cart()
     {
-        return view('client.cart');
+        $delivery_price = 0;
+        $discount = 0;
+
+        if (!Session::has('cart'))
+            return view('client.cart', ["carts" => false, "delivery_price" => $delivery_price, "discount" => $discount]);
+
+        $old_cart = (Session::has('cart')) ? Session::get('cart') : null;
+        $carts = new Cart($old_cart);
+
+        return view('client.cart', ["carts" => $carts, "delivery_price" => $delivery_price, "discount" => $discount]);
     }
 
     public function checkout()
@@ -50,5 +61,43 @@ class ClientController extends Controller
     public function orders()
     {
         return view('admin.orders');
+    }
+
+    public function addToCart($id)
+    {
+        $product = Product::find($id);
+
+        $old_cart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($old_cart);
+        $cart->add($product, $id);
+        Session::put("cart", $cart);
+
+        return redirect()->route("shop");
+    }
+
+    public function updateQty(Request $request, $id)
+    {
+        $old_cart = Session::has('cart') ? Session::get("cart") : null;
+
+        $cart = new Cart($old_cart);
+        $cart->updateQty($id, $request->quantity);
+        Session::put("cart", $cart);
+
+        return back();
+    }
+
+    public function removeFromCart($id)
+    {
+        $old_cart = Session::has('cart') ? Session::get("cart") : null;
+        $cart = new Cart($old_cart);
+        $cart->removeItem($id);
+
+        if (count($cart->items) > 0) {
+            Session::put("cart", $cart);
+            return back();
+        } else {
+            Session::forget("cart");
+            return redirect()->route("shop");
+        }
     }
 }
