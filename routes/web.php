@@ -29,7 +29,7 @@ use Illuminate\Support\Facades\Route;
 // require __DIR__.'/auth.php';
 
 Route::get('/', [ClientController::class, 'home']);
-Route::get('/shop', [ClientController::class, 'shop']);
+Route::get('/shop/{id?}', [ClientController::class, 'shop'])->name("shop");
 Route::get('/cart', [ClientController::class, 'cart']);
 Route::get('/checkout', [ClientController::class, 'checkout']);
 Route::get('/login', [ClientController::class, 'login']);
